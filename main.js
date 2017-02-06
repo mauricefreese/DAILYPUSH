@@ -10,7 +10,7 @@ if (window.location.hostname === '127.0.0.1') {
 
 // prepend the url of node.js server
 function route(url) {
-    return 'http://192.168.1.9:3000' + url;
+    return 'http://10.10.89.211:3000' + url;
 }
 
 var profile; // google user profile
@@ -51,6 +51,22 @@ function disconnect() {
     $('#photo').html('');
 }
 
+function get(url, success, error) {
+    $ajax({
+        url: route(url),
+        method: 'GET',
+        headers: {
+            'Authorization': authResponse.id_token
+        },
+        successs: function (data) {
+            if (success) success(data);
+        },
+        error: function () {
+            if (error) error();
+        }
+    });
+}
+
 function post(url, json, success, error) {
     $.ajax({
         url: route(url),
@@ -77,8 +93,7 @@ $('#plus-add-button').click(function () {
 });
 
 $('#plus-button-dialog').dialog({
-    autoOpen: false,
-    height: 400,
-    width: 350,
-    modal: true
-});
+            autoOpen: false,
+            height: 400,
+            width: 350,
+            modal: t
